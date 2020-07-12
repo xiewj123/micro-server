@@ -25,7 +25,7 @@ swagger:
   apiEnable: true
   htmlEnable: true
   title: 业务模块API文档
-  description: Auth | 权限模块
+  description: Auth | 权限模块1
   version: 2.0
   scanPackages: # List<String>
     - com.jxkj.microserverauth.controller
