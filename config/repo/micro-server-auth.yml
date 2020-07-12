@@ -3,11 +3,6 @@ server:
 spring:
   application:
     name: micro-server-auth
-  cloud:
-    config:
-      profile:
-      label:
-      uri:
 eureka:
   client:
     serviceUrl:
@@ -25,7 +20,7 @@ swagger:
   apiEnable: true
   htmlEnable: true
   title: 业务模块API文档
-  description: Auth | 权限模块1
+  description: Auth | 权限模块
   version: 2.0
   scanPackages: # List<String>
     - com.jxkj.microserverauth.controller
