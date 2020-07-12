@@ -1,0 +1,47 @@
+server:
+  port: 8082
+spring:
+  application:
+    name: micro-server-auth
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8760/eureka
+    register-with-eureka: true #是否向注册中心注册，默认为true
+    fetch-registry: true #是否向注册中心拉取服务注册信息，默认为true
+    registry-fetch-interval-seconds: 30 #拉取服务注册信息的间隔时间，默认30s
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
+    lease-renewal-interval-in-seconds: 30 #服务续约任务的调用间隔时间，默认30s
+    lease-expiration-duration-in-seconds: 90 #服务失效时间，默认90s
+
+swagger:
+  apiEnable: true
+  htmlEnable: true
+  title: 业务模块API文档
+  description: Auth | 权限模块
+  version: 2.0
+  scanPackages: # List<String>
+    - com.jxkj.microserverauth.controller
+
+feign:
+  hystrix:
+    enabled: true #开启后，hystrix的超时熔断时间才起效
+
+#熔断时间
+hystrix:
+  command:
+    default:
+      execution:
+        timeout:
+          enabled: true #如指定为false，相当于hytrix不控制熔断时间，由ribbon的超时和重试动态决定（试完所有服务实例均失败后，再进行超时fallback）
+        isolation:
+          thread:
+            timeoutInMilliseconds: 9000 #超时熔断时间 默认1000
+ribbon:
+  ConnectTimeout: 1000
+  ReadTimeout: 3000
+  MaxAutoRetries: 0 #同一台实例最大重试次数,不包括首次调用  default 0
+  MaxAutoRetriesNextServer: 1 #重试负载均衡其他的实例最大重试次数,不包括首次调用  default 1
+  OkToRetryOnAllOperations: false  #是否所有操作都重试
